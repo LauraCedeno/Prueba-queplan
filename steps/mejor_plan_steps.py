@@ -16,10 +16,5 @@ def step_completar_formulario(context):
             row["Prestador"], row["Edad"], row["Ingreso"], row["Email"]
         )
 
-@then("el sistema recomienda el mejor plan disponible")
-def step_verificar_recomendacion(context):
-    # Aquí puedes agregar validaciones
-    pass
-
 def after_scenario(context, scenario):
     context.driver.quit()

@@ -1,7 +1,5 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
 import time
 from pages.base_page import BasePage
 
@@ -11,30 +9,28 @@ class MejorPlanPage(BasePage):
     SELECT_PLAN_ACTUAL = (By.XPATH, "//mat-select[contains(@id, 'mat-select')]")
     CODIGO_PLAN = (By.XPATH, "//input[@id='mat-input-4']")
     COD = (By.XPATH, "//span[@class='text-capitaliz name']")
-    INPUT_UF = (By.XPATH, "//input[@id='mat-input-21']")
-    SELECT_REGION = (By.ID, "region")
-    SELECT_PRESTADOR = (By.ID, "prestador")
-    INPUT_EDAD = (By.ID, "edad")
-    INPUT_INGRESO = (By.ID, "ingreso")
-    INPUT_EMAIL = (By.ID, "email")
-    BTN_ENVIAR = (By.ID, "btn-enviar")
+    INPUT_UF = (By.XPATH, "//input[@id='mat-input-13']")
+    SELECT_REGION = (By.XPATH, "//div[@class='cdk-overlay-backdrop cdk-overlay-transparent-backdrop cdk-overlay-backdrop-showing']")
+    SELECT_PRESTADOR = (By.XPATH, "//input[@id='mat-input-16']")
+    INPUT_EDAD = (By.XPATH, "//input[@id='mat-input-14']")
+    INPUT_INGRESO = (By.XPATH, "//input[@id='mat-input-15']")
+    INPUT_EMAIL = (By.XPATH, "//input[@id='mat-input-17']")
+    BTN_ENVIAR = (By.XPATH, "//span[normalize-space()='Compara Ya!']")
 
     def abrir(self):
-        """Abre la página de 'Tu Mejor Plan'."""
         self.driver.get(self.URL)
 
     def completar_datos(self, plan, codigo, uf, region, prestador, edad, ingreso, email):
 
         # Click en el dropdown del plan
         self.wait.until(EC.element_to_be_clickable(self.SELECT_PLAN_ACTUAL)).click()
-        time.sleep(1)  # Breve pausa para que carguen las opciones
+        time.sleep(1)
         plan_xpath = f"//mat-option//span[contains(text(), '{plan}')]"
 
         # Esperar a que la opción del plan sea visible e interactuable
         plan_element = self.wait.until(EC.presence_of_element_located((By.XPATH, plan_xpath)))
         self.driver.execute_script("arguments[0].scrollIntoView();", plan_element)
-        time.sleep(1)  # Espera para que el scroll se complete
-
+        time.sleep(1)
         try:
             plan_element.click()
         except:
@@ -44,7 +40,8 @@ class MejorPlanPage(BasePage):
         self.write(*self.CODIGO_PLAN, codigo)
         self.click(*self.COD)
         time.sleep(3)
-        self.click(*self.INPUT_UF, uf)
+        self.click(*self.INPUT_UF)
+        self.write(*self.INPUT_UF, uf)
         self.write(*self.INPUT_EDAD, edad)
         self.write(*self.INPUT_INGRESO, ingreso)
         self.write(*self.INPUT_EMAIL, email)

@@ -11,7 +11,7 @@ class BasePage:
         try:
             return self.wait.until(EC.visibility_of_element_located((by, value)))
         except TimeoutException:
-            print(f"❌ Error: No se encontró el elemento {value} en el tiempo límite.")
+            print(f"Error: No se encontró el elemento {value} en el tiempo límite.")
             raise  # Relanza la excepción para que el test falle correctamente
 
     def write(self, by, locator, text):

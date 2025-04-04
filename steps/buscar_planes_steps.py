@@ -15,7 +15,6 @@ def step_buscar_plan(context, plan):
 
 @then("el sistema muestra los resultados para el plan buscado")
 def step_verificar_resultado(context):
-    # Aquí puedes agregar una validación de los resultados
     pass
 
 def after_scenario(context, scenario):
